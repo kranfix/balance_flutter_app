@@ -1,0 +1,41 @@
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  balance: Int!
+  offers: [Offer]!
+}
+
+type MutationRoot {
+  purchase(offerId: ID!): PurchaseMutationResponse
+}
+
+type Offer {
+  id: ID!
+  price: Int!
+  product: Product!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  image: URL!
+}
+
+type PurchaseMutationResponse {
+  success: Boolean!
+  errorMessage: String
+  customer: Customer!
+}
+
+type QueryRoot {
+  viewer: Customer
+}
+
+scalar URL
+
