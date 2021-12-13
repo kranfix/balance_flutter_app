@@ -4,23 +4,29 @@ import 'package:graphql_repositories/utils/utils.dart';
 
 const _fetchMeQuery = '''
 query fetchMe {
-  viewer {
+  viewer {...customerData}
+}
+
+$customerDataFragment
+''';
+
+/// Fragment for the customer data
+const customerDataFragment = '''
+fragment customerData on Customer {
+  id
+  name
+  balance
+  offers {
     id
-    name
-    balance
-    offers {
+    price
+    product {
       id
-      price
-      product {
-        id
-        name
-        description
-        image
-      }
+      name
+      description
+      image
     }
   }
-}
-''';
+}''';
 
 /// {@template graphql_repositories.GqlCustomerRepo}
 /// A repository that uses GraphQL for handling customers.

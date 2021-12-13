@@ -1,13 +1,18 @@
 import 'package:domain/domain.dart';
 import 'package:graphql/client.dart';
+import 'package:graphql_repositories/src/gql_customer_repo.dart';
+import 'package:graphql_repositories/utils/utils.dart';
 
-const _purchaseOffer = r'''
-mutation purchaseOffer($offerId: ID!) {
-  purchase(offerId: $offerId) {
+const _purchaseOffer = '''
+mutation purchaseOffer(\$offerId: ID!) {
+  purchase(offerId: \$offerId) {
     success
     errorMessage
+    customer {...customerData}
   }
 }
+
+$customerDataFragment
 ''';
 
 /// {@template graphql_repositories.GqlOfferRepo}
@@ -21,7 +26,7 @@ class GqlOfferRepo implements OfferRepo {
   final GraphQLClient Function() getClient;
 
   @override
-  Future<void> purchaseOne(String offerId) async {
+  Future<Customer> purchaseOne(String offerId) async {
     final client = getClient();
 
     final options = MutationOptions(
@@ -36,5 +41,9 @@ class GqlOfferRepo implements OfferRepo {
     if (result.hasException) {
       throw PurchaseOfferForbidenException(offerId);
     }
+
+    final purchase = result.data!['purchase'] as JMap;
+    final customer = purchase['customer'] as JMap;
+    return customer.toCustomer();
   }
 }
