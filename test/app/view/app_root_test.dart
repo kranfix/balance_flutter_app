@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../helpers/pump_app.dart';
+import '../../helpers/helpers.dart';
 
 final valueProvider = Provider((ref) => 5);
 
@@ -19,6 +19,7 @@ void main() {
           return const Offstage();
         },
       ),
+      mockedAppProviders,
     );
 
     expect(theme, isNotNull);

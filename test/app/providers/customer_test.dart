@@ -5,9 +5,7 @@ import 'package:oxidized/oxidized.dart';
 import 'package:riverbloc/riverbloc.dart';
 import 'package:test/test.dart';
 
-class CustomerMockRepo extends Mock implements CustomerRepo {}
-
-class OfferMockRepo extends Mock implements OfferRepo {}
+import '../../helpers/helpers.dart';
 
 const customer1b300 = Customer(
   id: '1',

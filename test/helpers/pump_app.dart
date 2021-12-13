@@ -10,7 +10,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nubank_flutter_challenge/app/view/app_root.dart';
 
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp(Widget widget) {
-    return pumpWidget(AppRoot(child: widget));
+  Future<void> pumpApp(Widget widget, AppProviders providers) {
+    return pumpWidget(
+      AppRoot(
+        providers: providers,
+        child: widget,
+      ),
+    );
   }
 }
