@@ -1,5 +1,8 @@
 import 'package:domain/domain.dart';
+import 'package:nubank_flutter_challenge/app/providers/providers.dart';
 import 'package:riverbloc/riverbloc.dart';
+
+export 'customer/customer_bloc.dart';
 
 /// Provider for the [CustomerRepo].
 final customerRepoPod = Provider<CustomerRepo>(
@@ -8,7 +11,9 @@ final customerRepoPod = Provider<CustomerRepo>(
 );
 
 /// Provider for [Customer] state.
-final customerPod = FutureProvider<Customer>((ref) async {
-  final customerRepo = ref.watch(customerRepoPod);
-  return customerRepo.fetchMe();
+final customerPod = BlocProvider<CustomerBloc, CustomerState>((ref) {
+  return CustomerBloc(
+    getCustomerRepo: () => ref.read(customerRepoPod),
+    getOfferRepo: () => ref.read(offerRepoPod),
+  );
 });
