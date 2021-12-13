@@ -24,6 +24,16 @@ const customer1b200 = Customer(
 );
 
 void main() {
+  test('Reading unoverriden customerRepoPod throws an Exception', () {
+    final container = ProviderContainer();
+    expect(
+      () => container.read(customerRepoPod),
+      throwsA(isA<ProviderException>()),
+    );
+
+    container.dispose();
+  });
+
   test('customer initiliazation with and without force', () async {
     final customerRepo = CustomerMockRepo();
     final offerRepo = OfferMockRepo();
