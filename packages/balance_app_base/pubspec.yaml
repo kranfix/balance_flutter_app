@@ -1,0 +1,20 @@
+name: balance_app_base
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  domain:
+    path: ../domain
+  flutter:
+    sdk: flutter
+  hooks_riverpod: ^1.0.2
+  riverbloc: ^1.0.0+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
