@@ -18,6 +18,7 @@ dependencies:
     path: packages/graphql_repositories
   hooks_riverpod: ^1.0.2
   intl: ^0.17.0
+  oxidized: ^5.1.0
   riverbloc: 1.0.0+2
 
 dev_dependencies:
