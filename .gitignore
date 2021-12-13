@@ -133,3 +133,6 @@ web/
 macos/
 linux/
 windows/
+
+# config
+lib/config/config_*.dart
