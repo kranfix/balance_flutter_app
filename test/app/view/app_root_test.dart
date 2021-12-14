@@ -19,7 +19,6 @@ void main() {
           return const Offstage();
         },
       ),
-      mockedAppProviders,
     );
 
     expect(theme, isNotNull);

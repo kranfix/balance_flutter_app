@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nubank_flutter_challenge/app/view/app_root.dart';
 
+import 'helpers.dart';
+
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp(Widget widget, AppProviders providers) {
+  Future<void> pumpApp(Widget widget, {AppProviders? providers}) {
     return pumpWidget(
       AppRoot(
-        providers: providers,
+        providers: providers ?? mockedAppProviders,
         child: widget,
       ),
     );
