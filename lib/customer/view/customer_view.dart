@@ -10,38 +10,36 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nubank_flutter_challenge/app/providers/providers.dart';
 import 'package:nubank_flutter_challenge/l10n/l10n.dart';
+import 'package:nubank_flutter_challenge/utils/utils.dart';
 
 class CustomerView extends ConsumerWidget {
   const CustomerView({Key? key}) : super(key: key);
 
   static late final pod = Provider<AsyncValue<Customer>>((ref) {
     final customerBloc = ref.read(customerPod.bloc)..add(const Initialized());
-    var lastVal = customerBloc.state.match(
-      (val) => val,
-      () => const AsyncLoading<Customer>(),
-    );
     ref.listen<CustomerState>(
       customerPod,
-      (prev, curr) => ref.state = curr.match(
-        (val) => val.when(
-          data: (_) => lastVal = val,
-          loading: () => lastVal,
-          error: (e, s) => lastVal.maybeWhen(
-            error: (e, s) => lastVal = val,
-            orElse: () => lastVal,
-          ),
-        ),
-        () => lastVal,
-      ),
+      (prev, curr) => ref.state = ref.state.updateWith(curr),
     );
-    return lastVal;
+    return customerBloc.state.flat();
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.counterAppBarTitle)),
+      appBar: AppBar(
+        title: Text(l10n.balanceAppTitle),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+          ),
+        ),
+      ),
       body: Center(
         child: Consumer(
           builder: (context, ref, _) {
