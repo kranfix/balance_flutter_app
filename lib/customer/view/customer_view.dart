@@ -36,7 +36,6 @@ class CustomerView extends ConsumerWidget {
             padding: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [],
             ),
           ),
         ),
