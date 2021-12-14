@@ -6,5 +6,5 @@ abstract class OfferRepo {
   /// Purchase an offer by id
   ///
   /// Throws [PurchaseOfferForbidenException] if the offer is not found
-  Future<void> purchaseOne(String offerId);
+  Future<Customer> purchaseOne(String offerId);
 }

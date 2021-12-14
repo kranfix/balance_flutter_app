@@ -1,0 +1,33 @@
+name: nubank_flutter_challenge
+description: Balance Flutter App for NuBank challege
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  bloc: ^8.0.1
+  domain:
+    path: packages/domain
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  graphql_repositories:
+    path: packages/graphql_repositories
+  hooks_riverpod: ^1.0.2
+  intl: ^0.17.0
+  oxidized: ^5.1.0
+  riverbloc: 1.0.0+2
+
+dev_dependencies:
+  bloc_test: ^9.0.1
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.2.0
+  very_good_analysis: ^2.4.0
+
+flutter:
+  uses-material-design: true
+  generate: true
