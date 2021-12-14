@@ -8,8 +8,8 @@ extension AsyncValueOptionStateUpdater<T> on AsyncValue<T> {
         data: (_) => val,
         loading: () => this,
         error: (e, s) => maybeWhen(
-          error: (e, s) => this,
-          orElse: () => this,
+          data: (_) => this,
+          orElse: () => val,
         ),
       ),
       () => this,
