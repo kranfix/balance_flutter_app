@@ -3,5 +3,9 @@
   "balanceAppTitle": "Balance",
   "@balanceAppTitle": {
     "description": "Texto mostrado en la AppBar de la página del contador"
+  },
+  "purchase": "Comprar",
+  "@purchase": {
+    "description": "Texto mostrado en la AppBar de la página del contador"
   }
 }
