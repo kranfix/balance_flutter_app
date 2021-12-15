@@ -51,10 +51,9 @@ class CustomerView extends ConsumerWidget {
           key: const Key('offers'),
           builder: (context, ref, _) {
             final state = ref.watch(pod);
-            return state.when(
+            return state.maybeWhen(
               data: (customer) => CustomerBody(customer: customer),
-              error: (e, _) => const Loader(),
-              loading: () => const Loader(),
+              orElse: () => const Loader(),
             );
           },
         ),

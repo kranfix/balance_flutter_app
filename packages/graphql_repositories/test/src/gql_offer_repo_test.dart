@@ -1,10 +1,8 @@
 import 'package:graphql/client.dart';
 import 'package:graphql_repositories/graphql_repositories.dart';
+import 'package:graphql_repositories/helper/helper.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-
-import '../helper/helper.dart';
-import '../helper/offer_data_bank.dart';
 
 void main() {
   setUpAll(() {

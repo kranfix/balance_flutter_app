@@ -31,17 +31,17 @@ class LoadingDialog extends StatelessWidget {
     BuildContext context, {
     required AsyncValueGetter<T> futureBuilder,
     ValueSetter<T>? onSuccess,
-    AsyncValueConverter<dynamic, T>? onError,
+    //AsyncValueConverter<dynamic, T>? onError,
   }) {
     futureBuilder().then(
       (value) {
         Navigator.pop(context);
         onSuccess?.call(value);
       },
-      onError: (dynamic err) async {
-        Navigator.pop(context);
-        await onError?.call(err);
-      },
+      //onError: (dynamic err) async {
+      //  Navigator.pop(context);
+      //  await onError?.call(err);
+      //},
     );
     // ignore: use_build_context_synchronously
     return showDialog(
