@@ -1,16 +1,11 @@
-// Copyright (c) 2021, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nubank_flutter_challenge/app/providers/providers.dart';
+import 'package:nubank_flutter_challenge/customer/view/offer_view.dart';
 import 'package:nubank_flutter_challenge/l10n/l10n.dart';
 import 'package:nubank_flutter_challenge/utils/utils.dart';
+import 'package:nubank_flutter_challenge/widgets/widgets.dart';
 
 class CustomerView extends ConsumerWidget {
   const CustomerView({Key? key}) : super(key: key);
@@ -32,16 +27,28 @@ class CustomerView extends ConsumerWidget {
         title: Text(l10n.balanceAppTitle),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
-          child: Padding(
+          child: Container(
             padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            alignment: Alignment.centerRight,
+            child: Consumer(
+              key: const Key('balance'),
+              builder: (context, ref, _) {
+                final state = ref.watch(pod);
+                return state.maybeWhen(
+                  data: (customer) => Text(
+                    '${customer.balance} USD',
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  orElse: () => const Offstage(),
+                );
+              },
             ),
           ),
         ),
       ),
       body: Center(
         child: Consumer(
+          key: const Key('offers'),
           builder: (context, ref, _) {
             final state = ref.watch(pod);
             return state.when(
@@ -51,23 +58,6 @@ class CustomerView extends ConsumerWidget {
             );
           },
         ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () =>
-                ref.read(customerPod.bloc).add(const Initialized()),
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 8),
-          FloatingActionButton(
-            onPressed: () =>
-                ref.read(customerPod.bloc).add(const Initialized()),
-            child: const Icon(Icons.remove),
-          ),
-        ],
       ),
     );
   }
@@ -88,7 +78,7 @@ class CustomerBody extends ConsumerWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
-        childAspectRatio: 9 / 12,
+        childAspectRatio: 3 / 4,
       ),
       padding: const EdgeInsets.all(20),
       itemCount: customer.offers.length,
@@ -106,51 +96,45 @@ class OfferCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(16)),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(4),
-                child: FittedBox(
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(offer.product.image),
-                        fit: BoxFit.fitWidth,
+    return GestureDetector(
+      onTap: () => OfferView.navigate(context, offer),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: FittedBox(
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(offer.product.image),
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              const SizedBox(height: 4),
-              Text(
-                '${offer.price} USD',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 8),
+                const SizedBox(height: 4),
+                Text(
+                  '${offer.price} USD',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(offer.product.name),
-            ],
+                Text(offer.product.name),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-}
-
-class Loader extends ConsumerWidget {
-  const Loader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const CircularProgressIndicator();
   }
 }

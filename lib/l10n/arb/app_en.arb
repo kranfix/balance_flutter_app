@@ -3,5 +3,9 @@
   "balanceAppTitle": "Balance",
   "@balanceAppTitle": {
     "description": "Text shown in the AppBar of the Counter Page"
+  },
+  "purchase": "Purchase",
+  "@purchase": {
+    "description": "Text shown in purchase button"
   }
 }

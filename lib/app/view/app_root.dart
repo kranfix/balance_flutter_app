@@ -25,6 +25,7 @@ class AppRoot extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
