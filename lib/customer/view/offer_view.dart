@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nubank_flutter_challenge/app/providers/customer.dart';
 import 'package:nubank_flutter_challenge/l10n/l10n.dart';
+import 'package:nubank_flutter_challenge/utils/utils.dart';
+import 'package:nubank_flutter_challenge/widgets/widgets.dart';
 
 class OfferView extends ConsumerWidget {
   const OfferView({Key? key, required this.offer}) : super(key: key);
@@ -55,7 +59,22 @@ class OfferView extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          ref.read(customerPod.bloc).add(OfferPurchased(offer.id));
+          LoadingDialog.show<void>(
+            context,
+            futureBuilder: () async {
+              final customerBloc = ref.read(customerPod.bloc)
+                ..add(OfferPurchased(offer.id));
+              final result = await customerBloc.stream.waitForResult();
+
+              final completer = Completer<void>();
+              result.whenOrNull(
+                data: completer.complete,
+                error: completer.completeError,
+              );
+              return completer.future;
+            },
+            onSuccess: (_) => Navigator.of(context).pop(),
+          );
         },
         label: Text(l10n.purchase),
       ),
