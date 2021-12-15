@@ -5,6 +5,7 @@ import 'package:nubank_flutter_challenge/app/providers/providers.dart';
 import 'package:nubank_flutter_challenge/customer/view/offer_view.dart';
 import 'package:nubank_flutter_challenge/l10n/l10n.dart';
 import 'package:nubank_flutter_challenge/utils/utils.dart';
+import 'package:nubank_flutter_challenge/widgets/widgets.dart';
 
 class CustomerView extends ConsumerWidget {
   const CustomerView({Key? key}) : super(key: key);
@@ -135,14 +136,5 @@ class OfferCard extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-class Loader extends ConsumerWidget {
-  const Loader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const CircularProgressIndicator();
   }
 }
