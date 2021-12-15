@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nubank_flutter_challenge/utils/utils.dart';
+//import 'package:nubank_flutter_challenge/utils/utils.dart';
 import 'package:nubank_flutter_challenge/widgets/commons/commons.dart';
 
 class LoadingDialog extends StatelessWidget {
